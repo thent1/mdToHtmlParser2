@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +11,7 @@ public class Editor {
         String[] stringArr = inputString.split("\n");
         stringArr = Checker.removeElementsByIndexes(stringArr, Checker.getExtraEmptyIndexes(stringArr));
         Checker.isValid(stringArr);
-        stringArr = Editor.replaceAllInArray(stringArr);
+        stringArr = Editor.replaceAllInArrayToHtml(stringArr);
         List<Integer> preformattedLines = Checker.getPreformattedLines(stringArr);
         stringArr = Editor.setPrefTags(stringArr);
         stringArr = Editor.setParagraphs(stringArr, preformattedLines);
@@ -24,7 +23,31 @@ public class Editor {
         String[] stringArr = inputString.split("\n");
         stringArr = Checker.removeElementsByIndexes(stringArr, Checker.getExtraEmptyIndexes(stringArr));
         Checker.isValid(stringArr);
-        stringArr = Editor.replaceAllInArray(stringArr);
+        stringArr = Editor.replaceAllInArrayToHtml(stringArr);
+        List<Integer> preformattedLines = Checker.getPreformattedLines(stringArr);
+        stringArr = Editor.setPrefTags(stringArr);
+        stringArr = Editor.setParagraphs(stringArr, preformattedLines);
+        return stringArr;
+    }
+
+    public static String mdToAnsiString(String inputString) throws Exception { // TODO rewrite method for ansi
+        String[] stringArr = inputString.split("\n");
+        stringArr = Checker.removeElementsByIndexes(stringArr, Checker.getExtraEmptyIndexes(stringArr));
+        Checker.isValid(stringArr);
+        stringArr = Editor.replaceAllInArrayToHtml(stringArr);
+        List<Integer> preformattedLines = Checker.getPreformattedLines(stringArr);
+        stringArr = Editor.setPrefTags(stringArr);
+        stringArr = Editor.setParagraphs(stringArr, preformattedLines);
+        String result = String.join("\n", stringArr);
+        result = result + "ABOBA"; // TODO remove later
+        return result;
+    }
+
+    public static String[] mdToAnsiStringArr(String inputString) throws Exception { // TODO rewrite method for ansi
+        String[] stringArr = inputString.split("\n");
+        stringArr = Checker.removeElementsByIndexes(stringArr, Checker.getExtraEmptyIndexes(stringArr));
+        Checker.isValid(stringArr);
+        stringArr = Editor.replaceAllInArrayToHtml(stringArr);
         List<Integer> preformattedLines = Checker.getPreformattedLines(stringArr);
         stringArr = Editor.setPrefTags(stringArr);
         stringArr = Editor.setParagraphs(stringArr, preformattedLines);
@@ -74,7 +97,7 @@ public class Editor {
         return result;
     }
 
-    public static String[] replaceAllInArray(String[] inputString) throws Exception {
+    public static String[] replaceAllInArrayToHtml(String[] inputString) throws Exception {
         List<Integer> preformattedLines = Checker.getPreformattedLines(inputString);
         String[] resultArray = inputString;
 
@@ -83,28 +106,67 @@ public class Editor {
                 continue;
             }
 
-            resultArray[i] = replaceBold(resultArray[i]);
-            resultArray[i] = replaceItalic(resultArray[i]);
-            resultArray[i] = replaceMono(resultArray[i]);
+            resultArray[i] = replaceBoldHtml(resultArray[i]);
+            resultArray[i] = replaceItalicHtml(resultArray[i]);
+            resultArray[i] = replaceMonoHtml(resultArray[i]);
         }
 
         return resultArray;
     }
-    public static String replaceBold(String inputString) {
+
+    public static String[] replaceAllInArrayToAnsi(String[] inputString) throws Exception {
+        List<Integer> preformattedLines = Checker.getPreformattedLines(inputString);
+        String[] resultArray = inputString;
+
+        for (int i = 0; i < resultArray.length; i++) {
+            if (preformattedLines.contains(i)) {
+                continue;
+            }
+
+            resultArray[i] = replaceBoldAnsi(resultArray[i]);
+            resultArray[i] = replaceItalicAnsi(resultArray[i]);
+            resultArray[i] = replaceMonoAnsi(resultArray[i]);
+        }
+
+        return resultArray;
+    }
+
+    public static String replaceBoldHtml(String inputString) {
         Pattern boldPattern = Pattern.compile(Regexps.boldComplete);
         Matcher boldMatcher = boldPattern.matcher(inputString);
 
         return boldMatcher.replaceAll("<b>$1</b>");
     }
 
-    public static String replaceItalic(String inputString) {
+    public static String replaceItalicHtml(String inputString) {
         Pattern italicPattern = Pattern.compile(Regexps.italicComplete);
         Matcher italicMatcher = italicPattern.matcher(inputString);
 
         return italicMatcher.replaceAll("<i>$1</i>");
     }
 
-    public static String replaceMono(String inputString) {
+    public static String replaceMonoHtml(String inputString) {
+        Pattern monoPattern = Pattern.compile(Regexps.monospacedComplete);
+        Matcher monoMatcher = monoPattern.matcher(inputString);
+
+        return monoMatcher.replaceAll("<tt>$1</tt>");
+    }
+
+    public static String replaceBoldAnsi(String inputString) {
+        Pattern boldPattern = Pattern.compile(Regexps.boldComplete);
+        Matcher boldMatcher = boldPattern.matcher(inputString);
+
+        return boldMatcher.replaceAll("<b>$1</b>");
+    }
+
+    public static String replaceItalicAnsi(String inputString) {
+        Pattern italicPattern = Pattern.compile(Regexps.italicComplete);
+        Matcher italicMatcher = italicPattern.matcher(inputString);
+
+        return italicMatcher.replaceAll("<i>$1</i>");
+    }
+
+    public static String replaceMonoAnsi(String inputString) {
         Pattern monoPattern = Pattern.compile(Regexps.monospacedComplete);
         Matcher monoMatcher = monoPattern.matcher(inputString);
 
