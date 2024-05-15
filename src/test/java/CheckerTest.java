@@ -76,4 +76,12 @@ class CheckerTest {
         String[] input = {"line1", "```", "line2", "line3", "line4"};
         assertThrows(IllegalArgumentException.class, () -> Checker.getPreformattedLines(input));
     }
+
+    @Test
+    void thisTestExistToBreakEverything() {
+        String[] input = {"line1", "line2", "line3", "line4"};
+        List<Integer> indexesToRemove = Arrays.asList(1, 3);
+        String[] expected = {"aboba", "line123"};
+        assertArrayEquals(expected, Checker.removeElementsByIndexes(input, indexesToRemove));
+    }
 }
