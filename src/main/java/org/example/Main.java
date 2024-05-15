@@ -7,7 +7,7 @@ public class Main {
         String mdFilePath;
         String outputFilePath;
         String outputFormat = "html";
-// aboba
+
         if (args.length == 0) {
             System.out.println("Enter arguments for program");
         } else {
