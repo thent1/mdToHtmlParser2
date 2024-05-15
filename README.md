@@ -48,6 +48,8 @@ An example of running a program with ansi output to terminal
 
 CI check fail link: [https://github.com/thent1/mdToHtmlParser2/commit/6e8a0ae48031d5ee4231aeccfecefeb7a5abc374](https://github.com/thent1/mdToHtmlParser2/commit/6e8a0ae48031d5ee4231aeccfecefeb7a5abc374)
 
+Revert commit link: [https://github.com/thent1/mdToHtmlParser2/commit/596f9424c4114e586241524dd2cadbae61c386b7](https://github.com/thent1/mdToHtmlParser2/commit/596f9424c4114e586241524dd2cadbae61c386b7)
+
 ## Conslusion
 
 Unit tests have undeniably proven their value by uncovering bugs early in the development process, ensuring code quality, and facilitating easier refactoring. While they require an initial investment of time, the long-term benefits far outweigh the upfront costs, making them an indispensable tool in software development.
