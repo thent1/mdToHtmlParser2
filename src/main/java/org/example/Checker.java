@@ -27,7 +27,7 @@ public class Checker {
         List<Integer> preformattedLines = Checker.getPreformattedLines(inputArray);
 
         for (int i = 0; i < inputArray.length; i++) {
-            if (preformattedLines.contains(i)){
+            if (preformattedLines.contains(i)) {
                 continue;
             }
 
@@ -61,39 +61,39 @@ public class Checker {
 
         List<String> trimmedList = new ArrayList<>();
 
-            Pattern boldPattern = Pattern.compile(Regexps.boldComplete);
-            Matcher boldMatcher = boldPattern.matcher(inputString);
+        Pattern boldPattern = Pattern.compile(Regexps.boldComplete);
+        Matcher boldMatcher = boldPattern.matcher(inputString);
 
-            while (boldMatcher.find()) {
-                trimmedList.add(boldMatcher.group().substring(2, boldMatcher.group().length() - 2));
+        while (boldMatcher.find()) {
+            trimmedList.add(boldMatcher.group().substring(2, boldMatcher.group().length() - 2));
+        }
+
+        Pattern italicPattern = Pattern.compile(Regexps.italicComplete);
+        Matcher italicMatcher = italicPattern.matcher(inputString);
+
+        while (italicMatcher.find()) {
+            trimmedList.add(italicMatcher.group().substring(1, italicMatcher.group().length() - 1));
+        }
+
+        Pattern monoPattern = Pattern.compile(Regexps.monospacedComplete);
+        Matcher monoMatcher = monoPattern.matcher(inputString);
+
+        while (monoMatcher.find()) {
+            trimmedList.add(monoMatcher.group().substring(1, monoMatcher.group().length() - 1));
+        }
+
+        for (int i = 0; i < trimmedList.size(); i++) {
+
+            boldMatcher = boldPattern.matcher(trimmedList.get(i));
+            italicMatcher = italicPattern.matcher(trimmedList.get(i));
+            monoMatcher = monoPattern.matcher(trimmedList.get(i));
+
+            boolean falseExpression = boldMatcher.find() || italicMatcher.find() || monoMatcher.find();
+
+            if (falseExpression) {
+                return true;
             }
-
-            Pattern italicPattern = Pattern.compile(Regexps.italicComplete);
-            Matcher italicMatcher = italicPattern.matcher(inputString);
-
-            while (italicMatcher.find()) {
-                trimmedList.add(italicMatcher.group().substring(1, italicMatcher.group().length() - 1));
-            }
-
-            Pattern monoPattern = Pattern.compile(Regexps.monospacedComplete);
-            Matcher monoMatcher = monoPattern.matcher(inputString);
-
-            while (monoMatcher.find()) {
-               trimmedList.add(monoMatcher.group().substring(1, monoMatcher.group().length() - 1));
-            }
-
-            for (int i = 0; i < trimmedList.size(); i++) {
-
-                boldMatcher = boldPattern.matcher(trimmedList.get(i));
-                italicMatcher = italicPattern.matcher(trimmedList.get(i));
-                monoMatcher = monoPattern.matcher(trimmedList.get(i));
-
-                boolean falseExpression = boldMatcher.find() || italicMatcher.find() || monoMatcher.find();
-
-                if (falseExpression) {
-                    return true;
-                }
-            }
+        }
 
 
         return false;
@@ -167,7 +167,7 @@ public class Checker {
                 emptyCounter = 0;
             }
         }
-        
+
         return extraLinesIndexes;
     }
 

@@ -56,15 +56,15 @@ public class Editor {
 
         String[] result = inputArray;
         result[0] = "<p>" + result[0];
-        result[result.length-1] = result[result.length-1] + "</p>";
+        result[result.length - 1] = result[result.length - 1] + "</p>";
 
         List<Integer> emptyLinesList = Checker.getEmptyLinesIndexes(result);
         List<Integer> linesToRemove = new ArrayList<>();
 
         for (int i = 0; i < emptyLinesList.size(); i++) {
             if (!preformattedLinesIndexes.contains(emptyLinesList.get(i))) {
-                result[emptyLinesList.get(i)-1] = result[emptyLinesList.get(i)-1] + "</p>";
-                result[emptyLinesList.get(i)+1] = "<p>" + result[emptyLinesList.get(i)+1];
+                result[emptyLinesList.get(i) - 1] = result[emptyLinesList.get(i) - 1] + "</p>";
+                result[emptyLinesList.get(i) + 1] = "<p>" + result[emptyLinesList.get(i) + 1];
                 linesToRemove.add(emptyLinesList.get(i));
             }
         }
@@ -105,7 +105,6 @@ public class Editor {
             resultArray[i] = replaceItalicHtml(resultArray[i]);
             resultArray[i] = replaceMonoHtml(resultArray[i]);
         }
-
         return resultArray;
     }
 

@@ -15,12 +15,12 @@ public class Main {
             mdFilePath = args[0];
 
             if (Arrays.asList(args).contains("--format")) {
-                outputFormat = args[Arrays.asList(args).indexOf("--format")+1];
+                outputFormat = args[Arrays.asList(args).indexOf("--format") + 1];
             }
 
             if (Arrays.asList(args).contains("--out")) {
 
-                outputFilePath = args[Arrays.asList(args).indexOf("--out")+1];
+                outputFilePath = args[Arrays.asList(args).indexOf("--out") + 1];
                 saveAsFile(mdFilePath, outputFilePath, outputFormat);
             } else {
                 stdOut(mdFilePath, outputFormat);
@@ -54,6 +54,7 @@ public class Main {
         }
 
     }
+
     public static void outputStrings(String[] array) {
         for (String str : array) {
             System.out.println(str);

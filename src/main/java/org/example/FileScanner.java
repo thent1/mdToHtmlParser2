@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class FileScanner {
 
-
     public static String toString(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
         StringBuilder stringBuilder = new StringBuilder();
