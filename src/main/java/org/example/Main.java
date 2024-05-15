@@ -25,20 +25,6 @@ public class Main {
             } else {
                 stdOut(mdFilePath, outputFormat);
             }
-
-
-
-
-//            if (args.length == 1) {
-//                mdFilePath = args[0];
-//                stdOut(mdFilePath);
-//            } else if (outArgSuccesCondition) {
-//                mdFilePath = args[0];
-//                outputFilePath = args[2];
-//                saveAsFile(mdFilePath, outputFilePath);
-//            } else {
-//                System.out.println("Wrong arguments");
-//            }
         }
     }
 
